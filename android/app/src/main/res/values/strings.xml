@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">newsit</string>
+    <string name="facebook_app_id">302327338964475</string>
+    <string name="fb_login_protocol_scheme">fb302327338964475</string>
+    <string name="facebook_client_token">1c8e392dc24e9788fb1d5f3a46228999</string>
+</resources>
