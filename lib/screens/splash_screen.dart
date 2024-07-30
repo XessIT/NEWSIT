@@ -4,6 +4,7 @@ import 'package:read/screens/signup.dart';
 
 import '../landing_page/landing_screen.dart';
 import '../repositories/storage.dart';
+import 'languageScreen.dart';
 import 'location.dart';
 
 
@@ -41,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => SignUpScreen(),
+          builder: (context) => LanguageDesign(),
         ),
       );
 

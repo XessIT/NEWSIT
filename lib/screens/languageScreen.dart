@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:read/screens/signup.dart';
 import 'package:read/screens/welcome.dart';
 
 import '../ui_components/customButton.dart';
@@ -119,13 +120,13 @@ class _LanguageDesignState extends State<LanguageDesign> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const WelcomeScreen(mobile: '',)), // Replace HomePage with your home page widget
+                                     SignUpScreen()), // Replace HomePage with your home page widget
                           );
                         }
                       : null,
                   showIconLeft: false, // Change to true to show the left icon
                   showArrowRight:
-                      false, // Change to true to show the right icon
+                      false, // Change to true to show 7402537926the right icon
                 ),
               ),
             ],
