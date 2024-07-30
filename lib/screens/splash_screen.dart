@@ -2,13 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../repositories/storage.dart';
-<<<<<<< HEAD
 import 'languageScreen.dart';
 import 'location.dart';
-=======
 import '../webNews.dart';
 
->>>>>>> b53ca1f2a0c7f0117dd066e5d3428576cf9c9fee
 
 
 
@@ -45,11 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-<<<<<<< HEAD
           builder: (context) => LanguageDesign(),
-=======
-          builder: (context) => WebNews(),
->>>>>>> b53ca1f2a0c7f0117dd066e5d3428576cf9c9fee
+         // builder: (context) => WebNews(),
         ),
       );
 
