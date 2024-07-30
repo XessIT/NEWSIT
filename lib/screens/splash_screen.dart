@@ -2,9 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:read/landing_page/landing_screen.dart';
 import 'package:read/screens/signup.dart';
-
 import '../repositories/storage.dart';
-import '../webNews.dart';
+
 
 
 
@@ -45,7 +44,6 @@ class _SplashScreenState extends State<SplashScreen> {
           builder: (context) => SignUpScreen(),
         ),
       );
-
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read/screens/location.dart';
 
 import 'package:read/screens/profile.dart';
+import 'package:read/screens/savedNews.dart';
 import 'package:read/screens/search.dart';
 import '../bloc/menu/menu_bloc.dart';
 import '../bloc/menu/menu_event.dart';
@@ -251,7 +252,7 @@ class MenuBody extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SearchPage(),
+            builder: (context) => SavedNewsScreen(),
           ),
         );
       },

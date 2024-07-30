@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read/landing_page/read_screen.dart';
+import 'package:read/webNews.dart';
 
 import '../screens/menu.dart';
 import '../screens/news_feed.dart';
 import '../screens/public_report.dart';
 import '../screens/reach_form.dart';
+import '../screens/storyviewpage.dart';
 import 'custom_appbar.dart';
 
 import 'navigation_bloc.dart';
@@ -182,9 +184,19 @@ class _AllNewsState extends State<AllNews> {
         child: ListView.builder(
           itemCount: imageUrls.length * 50,
           itemBuilder: (context, index) {
-            return NewsFeed(
-              imageUrl: imageUrls[index % imageUrls.length],
-              // Adjust height if needed
+            return InkWell(
+              onTap: (){
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WebNews(),
+                  ),
+                );
+              },
+              child: NewsFeed(
+                imageUrl: imageUrls[index % imageUrls.length],
+                // Adjust height if needed
+              ),
             );
           },
         ),

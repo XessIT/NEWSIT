@@ -34,6 +34,8 @@ dependencies:
   awesome_dialog: ^3.2.1
   permission_handler: ^11.3.1
   geolocator: ^12.0.0
+  story_view: ^0.16.5
+  cached_network_image: ^3.3.1
 
 
 
@@ -61,7 +63,10 @@ flutter:
     - assets/png/english-tamil.jpeg
     - assets/png/login.png
     - assets/png/newsit2 1.png
+    - assets/bridge.jpg
+
     - assets/png/news.png
+
 
 
 

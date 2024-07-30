@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:read/screens/storyviewpage.dart';
 import 'package:read/screens/verifyOtp.dart';
 import 'package:read/screens/welcome.dart';
 
@@ -332,8 +333,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           const SizedBox(width: 20),
                                           GestureDetector(
                                             onTap: () {
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(),));
-                                              print('Facebook Sign-In button pressed');
+                                              //Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(),));
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => StoryPage(),));
+                                              //print('Facebook Sign-In button pressed');
+                                              print('Story view button pressed');
                                             },
 
                                             child: const Image(

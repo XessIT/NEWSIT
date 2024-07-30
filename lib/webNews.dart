@@ -78,7 +78,7 @@ class _WebNewsState extends State<WebNews> {
             ),
             // Transparent BackdropFilter content (above the image and DraggableScrollableSheet)
             Positioned(
-              top: 250,
+              top: 280,
               left: 25,
               right: 25,
               child: ClipRRect(
