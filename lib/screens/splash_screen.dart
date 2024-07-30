@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:read/landing_page/landing_screen.dart';
+import 'package:read/screens/signup.dart';
 
 import '../repositories/storage.dart';
 import '../webNews.dart';
@@ -34,13 +36,13 @@ class _SplashScreenState extends State<SplashScreen> {
     if (await secureStorageService.isAccessTokenValid()) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => WebNews()),
+        MaterialPageRoute(builder: (context) => LandingScreen()),
       );
     } else {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => WebNews(),
+          builder: (context) => SignUpScreen(),
         ),
       );
 
