@@ -2,13 +2,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'dart:convert';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'package:firebase_core/firebase_core.dart';
 import 'package:read/repositories/google_signin/SignInPage.dart';
 import 'package:read/repositories/google_signin/login_screen.dart';
 import 'package:read/screens/splash_screen.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:read/theme/app_themes.dart';
-
 import 'landing_page/read_navigation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,8 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  //WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp();
   runApp(
       MultiBlocProvider(
         providers: [
