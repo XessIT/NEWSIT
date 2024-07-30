@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:read/screens/signup.dart';
 
-import '../landing_page/landing_screen.dart';
 import '../repositories/storage.dart';
+<<<<<<< HEAD
 import 'languageScreen.dart';
 import 'location.dart';
+=======
+import '../webNews.dart';
+
+>>>>>>> b53ca1f2a0c7f0117dd066e5d3428576cf9c9fee
 
 
 
@@ -36,13 +39,17 @@ class _SplashScreenState extends State<SplashScreen> {
     if (await secureStorageService.isAccessTokenValid()) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LandingScreen()),
+        MaterialPageRoute(builder: (context) => WebNews()),
       );
     } else {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
+<<<<<<< HEAD
           builder: (context) => LanguageDesign(),
+=======
+          builder: (context) => WebNews(),
+>>>>>>> b53ca1f2a0c7f0117dd066e5d3428576cf9c9fee
         ),
       );
 
