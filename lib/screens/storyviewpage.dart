@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:read/screens/webnews_G.dart';
 import 'package:story_view/story_view.dart';
+import '../landing_page/landing_screen.dart';
 import '../ui_components/customButton.dart';
 
 
@@ -86,7 +87,12 @@ class _StoryPageState extends State<StoryPage> {
             right: 20,
             child: GestureDetector(
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LandingScreen(),
+                  ),
+                );
               },
               child: Icon(
                 Icons.close,

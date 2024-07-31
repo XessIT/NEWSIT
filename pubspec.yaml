@@ -64,7 +64,13 @@ flutter:
     - assets/png/login.png
     - assets/png/newsit2 1.png
     - assets/bridge.jpg
+<<<<<<< HEAD
     - assets/png/news.png
+=======
+
+    - assets/png/news.png
+
+>>>>>>> 6d6c7913dedb3b3d8eccc3771ba5804691bf0e08
 
 
 

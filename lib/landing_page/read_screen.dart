@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../screens/menu.dart';
+import '../screens/storyviewpage.dart';
 import '../theme/image_resource.dart';
 import 'custom_appbar.dart';
 import 'landing_screen.dart';
@@ -79,33 +80,41 @@ class ReadScreen extends StatelessWidget {
       child: BlocBuilder<ReadNavigationBloc, ReadNavigationState>(
         buildWhen: (previous, current) => previous.selectedIndex != current.selectedIndex,
         builder: (context, state) {
-          return Column(
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 8),
-                width: 80, // Set the width for both image and container
-                height: 100, // Set the height for both image and container
-                decoration: BoxDecoration(
-                  color: state.selectedIndex == index ? Colors.red : Colors.grey[200],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12), // Ensure the image fits within the rounded corners
-                  child: Image.asset(
-                    imagePath,
-                    fit: BoxFit.cover,
+          return GestureDetector(
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => StoryPage()),
+              );
+            },
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 8),
+                  width: 80, // Set the width for both image and container
+                  height: 100, // Set the height for both image and container
+                  decoration: BoxDecoration(
+                    color: state.selectedIndex == index ? Colors.red : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12), // Ensure the image fits within the rounded corners
+                    child: Image.asset(
+                      imagePath,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 5),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 12, // Adjust the font size as needed
-                  color: state.selectedIndex == index ? Colors.red : Colors.black, // Change to yellow for debugging
+                SizedBox(height: 5),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 12, // Adjust the font size as needed
+                    color: state.selectedIndex == index ? Colors.red : Colors.black, // Change to yellow for debugging
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),
