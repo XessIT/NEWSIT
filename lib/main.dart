@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'dart:convert';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,8 +15,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 void main() async {
-  //WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
       MultiBlocProvider(
         providers: [

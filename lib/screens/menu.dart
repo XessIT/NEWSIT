@@ -76,7 +76,7 @@ class MenuBody extends StatelessWidget {
               const SizedBox(height: 20),
               const Align(
                   alignment: Alignment.topLeft,
-                  child: Text("Language Preferences")),
+                  child: Text("Language Preferences",style: TextStyle(color: Colors.black, fontSize: 16),)),
               const SizedBox(height: 5),
               _buildListTile(
                 title: 'English - English',
@@ -109,7 +109,7 @@ class MenuBody extends StatelessWidget {
               const SizedBox(height: 5),
               _buildListTile(
                   title: 'Preferred location and category',
-                  icon: Icons.arrow_forward_ios,
+                  icon: Icons.arrow_forward,
                   onTap: () {
                     Navigator.push(
                       context,
@@ -122,7 +122,7 @@ class MenuBody extends StatelessWidget {
               const SizedBox(height: 10),
               _buildListTile(
                   title: 'Terms & Conditions',
-                  icon: Icons.arrow_forward_ios,
+                  icon:Icons.arrow_forward,
                   onTap: () {
                     // Add your onTap action here
                   }),
@@ -177,16 +177,16 @@ class MenuBody extends StatelessWidget {
             children: [
               Text(
                 userProfile['name'] ?? 'Unknown',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
               ),
               Text(
                 userProfile['mobile_number'] ?? 'Unknown',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+                style: TextStyle(fontSize: 16, color: Colors.black),
               ),
             ],
           ),
           Spacer(),
-          Icon(Icons.arrow_forward_ios, color: Colors.grey),
+          Icon(Icons.arrow_forward_ios, color: Colors.black),
         ],
       ),
     );
@@ -205,7 +205,11 @@ class MenuBody extends StatelessWidget {
         border: Border.all(color: Colors.grey, width: 1.0),
       ),
       child: ListTile(
-        title: Text(title),
+        title: Text(title,style: TextStyle(
+          fontSize: 16,
+          color: Colors.black,
+        ),),
+
         subtitle: subtitle != null ? Text(subtitle) : null,
         trailing: Icon(icon),
         onTap: onTap,
@@ -221,7 +225,7 @@ class MenuBody extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+          color: Colors.green[100],
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Colors.grey, width: 1.0),
       ),
@@ -230,14 +234,17 @@ class MenuBody extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title, style: TextStyle(fontSize: 16)),
+            Text(title, style: TextStyle(fontSize: 16,color: Colors.black),),
             Row(
               children: [
                 Switch(
                   value: value,
                   onChanged: onChanged,
+                  activeColor: Colors.green[300],
+                  thumbColor: MaterialStateProperty.all(Colors.green[600]),
+
                 ),
-                Text(secondaryText, style: TextStyle(color: Colors.blue)),
+                Text(secondaryText),
               ],
             ),
           ],
@@ -266,15 +273,22 @@ class MenuBody extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-        child: Center(
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
+            Icon(
+              Icons.arrow_forward,
+              color: Colors.white,
+            ),
+          ],
         ),
       ),
     );

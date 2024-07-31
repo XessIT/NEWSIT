@@ -217,7 +217,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                                     fieldStyle: FieldStyle.box,
                                                     outlineBorderRadius: 10,
                                                     style:
-                                                        TextStyle(fontSize: 17),
+                                                        TextStyle(fontSize: 18),
                                                     onChanged: (pin) {
                                                       _checkOtpComplete(pin);
                                                     },
