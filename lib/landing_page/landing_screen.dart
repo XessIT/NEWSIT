@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read/landing_page/read_screen.dart';
-
 import '../screens/menu.dart';
 import '../screens/news_feed.dart';
 import '../screens/public_report.dart';
 import '../screens/reach_form.dart';
 import 'custom_appbar.dart';
-
 import 'navigation_bloc.dart';
-
 
 
 class LandingScreen extends StatelessWidget {

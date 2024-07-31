@@ -8,7 +8,6 @@ import 'package:read/repositories/google_signin/login_screen.dart';
 import 'package:read/screens/splash_screen.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:read/theme/app_themes.dart';
-
 import 'landing_page/read_navigation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
