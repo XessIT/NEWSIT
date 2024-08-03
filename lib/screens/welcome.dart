@@ -130,20 +130,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   children: <Widget>[
                     SizedBox(height: 60),
                     Text(
-                      'Welcome!',
+                      'Hi!',
                       style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           fontWeight: FontWeight.w700, color: Colors.black),
                     ),
                     SizedBox(height: 30),
                     Text(
-                      'How can we call you?',
+                      'Lets get to know you better?',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold, color: Colors.grey),
                     ),
                     SizedBox(height: 8),
                     CustomTextFormField(
                       controller: _nameController,
-                      hintText: "Enter your Name",
+                      hintText: "Enter your full Name",
                       prefixIcon: Icon(Icons.person),
                     ),
                     SizedBox(height: 10),
@@ -193,7 +193,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     SizedBox(height: 200),
                     CustomButton(
-                      text: "Get Started",
+                      text: "Proceed to the next step",
                       onPressed: () => _submitForm(context),
                     ),
                   ],

@@ -121,20 +121,15 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
 
                     return Text(
                       'Hi ${state.userName},',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(fontWeight: FontWeight.w700, color: Colors.black),
+                      style: TextStyle(fontSize: 24, color: Colors.black),
                     );
                   },
                 ),
                 SizedBox(height: 14),
                 Text(
-                  "Choose your preferred location and category. We'll curate the news just for you!",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey),
+                  "Choose cities of your prefernce. We'll curate the news just for you!",
+                  style: TextStyle(fontSize: 18, color: Colors.black),
+
                 ),
                 SizedBox(height: 24),
                 BlocBuilder<LocationSelectionBloc, LocationSelectionState>(
@@ -144,10 +139,7 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
                       children: [
                         Text(
                           'Primary Location',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge
-                              ?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey),
+                            style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                         buildDropdownButtonFormField(
                           context,
@@ -165,11 +157,7 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
                         SizedBox(height: 16),
                         Text(
                           'Secondary Location/Home Town',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge
-                              ?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey),
-                        ),
+                          style: TextStyle(fontSize: 16, color: Colors.black), ),
                         buildDropdownButtonFormField(
                           context,
                           'Home Town',
@@ -186,11 +174,7 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
                         SizedBox(height: 16),
                         Text(
                           'City of Choice',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge
-                              ?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey),
-                        ),
+                          style: TextStyle(fontSize: 16, color: Colors.black),  ),
                         buildDropdownButtonFormField(
                           context,
                           'City Of Choice',
