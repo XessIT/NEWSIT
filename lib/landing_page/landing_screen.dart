@@ -11,6 +11,7 @@ import '../screens/storyviewpage.dart';
 import 'custom_appbar.dart';
 
 import 'navigation_bloc.dart';
+import 'news_bloc.dart';
 
 
 

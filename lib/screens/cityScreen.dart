@@ -52,7 +52,7 @@ class CityScreen extends StatelessWidget {
           } else if (state is CityLoading) {
             return Center(child: CircularProgressIndicator());
           } else if (state is CityLoadSuccess) {
-            final cities = state.cities.where((city) => !excludeList.contains(city.id)).toList();
+            final cities = state.cities.where((city) => !excludeList.contains(city.name)).toList();
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(

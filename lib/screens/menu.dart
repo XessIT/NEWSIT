@@ -14,6 +14,7 @@ import '../repositories/profileApi.dart';
 import '../repositories/storage.dart';
 import '../theme/image_resource.dart';
 import 'languageScreen.dart';
+import 'newsit_home.dart';
 
 class MenuPage extends StatelessWidget {
   @override
@@ -115,6 +116,19 @@ class MenuBody extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => LocationCategorySelection(),
+                      ),
+                    );
+                    // Add your onTap action here
+                  }),
+              const SizedBox(height: 10),
+              _buildListTile(
+                  title: 'Reporter Report',
+                  icon: Icons.arrow_forward_ios,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NewsItHome(),
                       ),
                     );
                     // Add your onTap action here

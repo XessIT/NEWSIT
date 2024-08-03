@@ -6,17 +6,10 @@ import 'location_state.dart';
 
 class LocationSelectionBloc extends Bloc<LocationSelectionEvent, LocationSelectionState> {
   final LocationApiService apiService;
-  final ProfileApiService profileApiService; // Add this
+  final ProfileApiService profileApiService;
 
   LocationSelectionBloc(this.apiService, this.profileApiService)
-      : super(LocationSelectionState(
-    primaryLocation: '',
-    homeTown: '',
-    cityOfChoice: '',
-    selectedCategories: [],
-    categories: [],
-    userName: '', // Add userName field to the state
-  )) {
+      : super(LocationSelectionState.initial()) {
     on<PrimaryLocationChanged>((event, emit) {
       emit(state.copyWith(primaryLocation: event.primaryLocation));
     });
@@ -38,17 +31,23 @@ class LocationSelectionBloc extends Bloc<LocationSelectionEvent, LocationSelecti
         final categories = await apiService.fetchCategories();
         emit(state.copyWith(categories: categories));
       } catch (e) {
-        // Handle the error appropriately, e.g., emit an error state
         print('Error loading categories: $e');
       }
     });
 
     on<LoadUserDetails>((event, emit) async {
       try {
-        final userDetails = await profileApiService.fetchUserDetails(); // Use the instance method
-        emit(state.copyWith(userName: userDetails['name']));
+        final userDetails = await profileApiService.fetchUserDetails();
+        emit(state.copyWith(
+          userName: userDetails['name'] as String,
+          primaryLocation: (userDetails['preferences']['city_1']['name'] as String?) ?? '',
+          homeTown: (userDetails['preferences']['city_2']['name'] as String?) ?? '',
+          cityOfChoice: (userDetails['preferences']['city_3']['name'] as String?) ?? '',
+          selectedCategories: (userDetails['preferences']['categories'] as List<dynamic>)
+              .map<String>((category) => category['id'] as String)
+              .toList(),
+        ));
       } catch (e) {
-        // Handle the error appropriately, e.g., emit an error state
         print('Error loading user details: $e');
       }
     });
@@ -62,9 +61,7 @@ class LocationSelectionBloc extends Bloc<LocationSelectionEvent, LocationSelecti
           'city_2': state.homeTown,
           'city_3': state.cityOfChoice,
         });
-        // Optionally, you could emit a success state here
       } catch (e) {
-        // Handle the error appropriately, e.g., emit an error state
         print('Error submitting location selection: $e');
       }
     });

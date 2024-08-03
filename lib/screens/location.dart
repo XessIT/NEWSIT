@@ -8,7 +8,6 @@ import '../bloc/city/city_bloc.dart';
 import '../bloc/location/location_bloc.dart';
 import '../bloc/location/location_event.dart';
 import '../bloc/location/location_state.dart';
-import '../landing_page/landing_screen.dart';
 import '../repositories/city_api.dart';
 import '../repositories/locationMap_Service.dart';
 import '../repositories/location_api.dart';
@@ -23,7 +22,10 @@ class LocationCategorySelection extends StatelessWidget {
     final secureStorageService = SecureStorageService();
 
     return BlocProvider(
-      create: (_) => LocationSelectionBloc(LocationApiService(Dio(), secureStorageService),ProfileApiService(Dio(), secureStorageService)),
+      create: (_) => LocationSelectionBloc(
+        LocationApiService(Dio(), secureStorageService),
+        ProfileApiService(Dio(), secureStorageService),
+      ),
       child: LocationCategorySelectionView(),
     );
   }
@@ -39,11 +41,24 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
   String _locationMessage = "";
   Map<String, String> _cityNames = {}; // Store city names with their IDs
 
+  // Define TextEditingController instances
+  final TextEditingController _primaryLocationController = TextEditingController();
+  final TextEditingController _homeTownController = TextEditingController();
+  final TextEditingController _cityOfChoiceController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     context.read<LocationSelectionBloc>().add(LoadCategories());
     context.read<LocationSelectionBloc>().add(LoadUserDetails());
+  }
+
+  @override
+  void dispose() {
+    _primaryLocationController.dispose();
+    _homeTownController.dispose();
+    _cityOfChoiceController.dispose();
+    super.dispose();
   }
 
   @override
@@ -93,6 +108,17 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
                 SizedBox(height: 40),
                 BlocBuilder<LocationSelectionBloc, LocationSelectionState>(
                   builder: (context, state) {
+                    _cityNames = {
+                      state.primaryLocation: _cityNames[state.primaryLocation] ?? state.primaryLocation,
+                      state.homeTown: _cityNames[state.homeTown] ?? state.homeTown,
+                      state.cityOfChoice: _cityNames[state.cityOfChoice] ?? state.cityOfChoice,
+                    };
+
+                    // Update controllers with the current values
+                    _primaryLocationController.text = _cityNames[state.primaryLocation] ?? 'Select';
+                    _homeTownController.text = _cityNames[state.homeTown] ?? 'Select';
+                    _cityOfChoiceController.text = _cityNames[state.cityOfChoice] ?? 'Select';
+
                     return Text(
                       'Hi ${state.userName},',
                       style: Theme.of(context)
@@ -113,15 +139,6 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
                 SizedBox(height: 24),
                 BlocBuilder<LocationSelectionBloc, LocationSelectionState>(
                   builder: (context, state) {
-                    List<String> excludeSecondaryLocation = [
-                      state.primaryLocation,
-                      state.cityOfChoice,
-                    ];
-                    List<String> excludeCityOfChoice = [
-                      state.primaryLocation,
-                      state.homeTown,
-                    ];
-
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -135,11 +152,15 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
                         buildDropdownButtonFormField(
                           context,
                           'Primary Location',
-                          _cityNames[state.primaryLocation] ?? 'Select',
-                              (newValue) {
-                            context.read<LocationSelectionBloc>().add(PrimaryLocationChanged(newValue!));
+                          _primaryLocationController,
+                              (newCityId) {
+                            if (newCityId != null) {
+                              context.read<LocationSelectionBloc>().add(
+                                PrimaryLocationChanged(newCityId),
+                              );
+                            }
                           },
-                          [...excludeSecondaryLocation, ...excludeCityOfChoice],
+                          [_homeTownController.text , _cityOfChoiceController.text],
                         ),
                         SizedBox(height: 16),
                         Text(
@@ -152,11 +173,15 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
                         buildDropdownButtonFormField(
                           context,
                           'Home Town',
-                          _cityNames[state.homeTown] ?? 'Select',
-                              (newValue) {
-                            context.read<LocationSelectionBloc>().add(HomeTownChanged(newValue!));
+                          _homeTownController,
+                              (newCityId) {
+                            if (newCityId != null) {
+                              context.read<LocationSelectionBloc>().add(
+                                HomeTownChanged(newCityId),
+                              );
+                            }
                           },
-                          [...excludeSecondaryLocation, ...excludeCityOfChoice],
+                          [_primaryLocationController.text , _cityOfChoiceController.text],
                         ),
                         SizedBox(height: 16),
                         Text(
@@ -169,11 +194,15 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
                         buildDropdownButtonFormField(
                           context,
                           'City Of Choice',
-                          _cityNames[state.cityOfChoice] ?? 'Select',
-                              (newValue) {
-                            context.read<LocationSelectionBloc>().add(CityOfChoiceChanged(newValue!));
+                          _cityOfChoiceController,
+                              (newCityId) {
+                            if (newCityId != null) {
+                              context.read<LocationSelectionBloc>().add(
+                                CityOfChoiceChanged(newCityId),
+                              );
+                            }
                           },
-                          [...excludeSecondaryLocation, ...excludeCityOfChoice],
+                          [_primaryLocationController.text , _homeTownController.text],
                         ),
                         SizedBox(height: 24),
                         Text(
@@ -230,7 +259,6 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
                                 });
                               }
                             },
-
                             child: Text(
                               'Use my current location',
                               style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.red),
@@ -255,10 +283,8 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
                               state.homeTown != '' &&
                               state.cityOfChoice != ''
                               ? () {
-                            context.read<LocationSelectionBloc>().add(SubmitLocationSelection());
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (context) => LandingScreen()),
+                            context.read<LocationSelectionBloc>().add(
+                              SubmitLocationSelection(),
                             );
                           }
                               : null,
@@ -278,10 +304,13 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
   Widget buildDropdownButtonFormField(
       BuildContext context,
       String hintText,
-      String selectedValue,
+      TextEditingController controller,
       ValueChanged<String?>? onChanged,
       List<String> excludeList,
       ) {
+    // Variable to store the selected city ID
+    String? selectedCityId;
+
     return InkWell(
       onTap: () async {
         final result = await Navigator.of(context).push(
@@ -300,36 +329,59 @@ class _LocationCategorySelectionViewState extends State<LocationCategorySelectio
           if (cityId != null && cityName != null) {
             setState(() {
               _cityNames[cityId] = cityName;
+              controller.text = cityName; // Update controller with the selected city's name
+              selectedCityId = cityId; // Store the selected city ID
             });
-            onChanged?.call(cityId);
+
+            // Call onChanged with both city ID and city name
+            if (onChanged != null && selectedCityId != null) {
+              onChanged(selectedCityId);
+            }
           }
         }
       },
-      child: InputDecorator(
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.bold, color: Colors.grey),
-          filled: true,
-          fillColor: Colors.grey[200],
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide.none,
+      child: IgnorePointer(
+        child: DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.bold, color: Colors.grey),
+            filled: true,
+            fillColor: Colors.grey[200],
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Colors.blue),
+            ),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Colors.blue),
+          value: _cityNames.keys.firstWhere(
+                (id) => _cityNames[id] == controller.text,
+            orElse: () => '', // Default value if no match is found
           ),
-        ),
-        child: Text(
-          selectedValue,
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.bold, color: Colors.grey),
+          onChanged: (selectedCityId) {
+            if (selectedCityId != null) {
+              final cityName = _cityNames[selectedCityId];
+              setState(() {
+                controller.text = cityName ?? '';
+              });
+              // Call onChanged with the selected city ID
+              if (onChanged != null) onChanged(selectedCityId);
+            }
+          },
+          items: _cityNames.entries.map((entry) {
+            return DropdownMenuItem<String>(
+              value: entry.key,
+              child: Text(entry.value),
+            );
+          }).toList(),
         ),
       ),
     );
   }
+
+
+
 }
-
-
-

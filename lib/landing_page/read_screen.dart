@@ -9,7 +9,7 @@ import 'read_navigation_bloc.dart';
 
 class ReadScreen extends StatelessWidget {
   final List<Widget> _pages = [
-    AllNews(showAppBar: false),
+    const AllNews(showAppBar: false),
     Center(child: Text('Top 10 Tamilnadu')),
     Center(child: Text('Chennai')),
     Center(child: Text('Coimbatore')),
