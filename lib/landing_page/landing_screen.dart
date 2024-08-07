@@ -3,6 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read/landing_page/read_screen.dart';
 import 'package:read/webNews.dart';
 
+import '../bloc/newsFeed/newsFeed_bloc.dart';
+import '../bloc/newsFeed/newsFeed_event.dart';
+import '../bloc/newsFeed/newsFeed_state.dart';
+import '../model/news_model.dart';
+import '../repositories/storage.dart';
 import '../screens/menu.dart';
 import '../screens/news_feed.dart';
 import '../screens/public_report.dart';
@@ -11,6 +16,7 @@ import '../screens/storyviewpage.dart';
 import 'custom_appbar.dart';
 
 import 'navigation_bloc.dart';
+import 'newsApi.dart';
 import 'news_bloc.dart';
 
 
@@ -119,42 +125,25 @@ class LandingScreen extends StatelessWidget {
 
 
 
-
-
 class AllNews extends StatefulWidget {
   final bool showAppBar;
 
-  const AllNews({super.key, this.showAppBar = true});
+  const AllNews({Key? key, this.showAppBar = true}) : super(key: key);
 
   @override
   State<AllNews> createState() => _AllNewsState();
 }
 
 class _AllNewsState extends State<AllNews> {
-  final List<String> imageUrls = [
-    'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/1236701/pexels-photo-1236701.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/1619356/pexels-photo-1619356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/355564/pexels-photo-355564.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/34950/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/145939/pexels-photo-145939.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/196647/pexels-photo-196647.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/169573/pexels-photo-169573.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/219943/pexels-photo-219943.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/1414457/pexels-photo-1414457.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/333649/pexels-photo-333649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/35600/road-sun-rays-path.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-  ];
+  late Future<List<News>> _news;
+
+  @override
+  void initState() {
+    super.initState();
+    final secureStorageService = SecureStorageService();
+    final newsService = NewsService(secureStorageService: secureStorageService);
+    _news = newsService.fetchNews(1, 20, 'en'); // Initial fetch
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,9 +159,8 @@ class _AllNewsState extends State<AllNews> {
           },
           icon: Icon(Icons.menu),
         ),
-        title:Image.asset(
+        title: Image.asset(
           'assets/png/newsit2 1.png',
-          //height: 100,
         ),
         actions: [CustomAppBar()],
         elevation: 0,
@@ -182,26 +170,51 @@ class _AllNewsState extends State<AllNews> {
       )
           : null,
       body: SafeArea(
-        child: ListView.builder(
-          itemCount: imageUrls.length * 50,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: (){
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WebNews(),
-                  ),
-                );
-              },
-              child: NewsFeed(
-                imageUrl: imageUrls[index % imageUrls.length],
-                // Adjust height if needed
-              ),
-            );
+        child: FutureBuilder<List<News>?>(
+          future: _news,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Failed to load news: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!.isEmpty) {
+              return Center(child: Text('No news available'));
+            } else {
+              final newsList = snapshot.data!;
+              return ListView.builder(
+                itemCount: newsList.length,
+                itemBuilder: (context, index) {
+                  final newsItem = newsList[index];
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WebNews(),
+                        ),
+                      );
+                    },
+                    child: NewsFeed(
+                      imageUrl : newsItem.news_card_images?.original_url ?? 'https://via.placeholder.com/150',
+                      title: (newsItem.web_content ?? '').isNotEmpty
+                          ? (newsItem.web_content ?? '').substring(0, 50) + '...'
+                          : 'No content',
+                      newsId : newsItem.id ?? '',
+                      //description: newsItem.description,
+                      profiles: (newsItem.profiles ?? []).isNotEmpty ? (newsItem.profiles ?? []).map((p) => p.name ?? 'No name').join(', ') : 'No profiles',
+                      tags: (newsItem.tags ?? []).isNotEmpty ? (newsItem.tags ?? []).join(', ') : 'No tags',
+                      topics: (newsItem.topics ?? []).isNotEmpty ? (newsItem.topics ?? []).map((t) => t.name ?? 'No name').join(', ') : 'Topics',
+                      likeCount: newsItem.like_count ?? 1
+                    ),
+                  );
+                },
+              );
+            }
           },
         ),
       ),
     );
   }
 }
+
+
