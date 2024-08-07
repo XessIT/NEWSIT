@@ -1,28 +1,63 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:read/model/api_response.dart';
+import 'package:read/model/news_model.dart';
 import '../repositories/storage.dart';
-import '../utils/url_endpoints.dart';
- // Your secure storage service to get the token
 
-class NewsApiService {
-  final Dio _dio = Dio();
-  final SecureStorageService _storageService = SecureStorageService();
+class NewsService {
+  final String baseUrl = 'http://stg-api-alb-1550582675.ap-south-1.elb.amazonaws.com/news-svc/api/v1/newsfeed';
+  final SecureStorageService secureStorageService;
 
-  Future<List<dynamic>> fetchNews(int skip, int limit) async {
-    final token = await _storageService.readAccessToken();
-    final response = await _dio.get(
-      '$getNewsUrl',
-      queryParameters: {'skip': skip, 'limit': limit},
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      ),
+  NewsService({required this.secureStorageService});
+
+  Future<List<News>> fetchNews(int page, int pageSize, String language) async {
+    // You should replace the hardcoded token with a dynamic one if needed
+    final token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMwMDg0NDksImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.AvYBpxgbvHTzi9ubqtbsOgNk8CrCNlrW0mtAyZkYLTk";
+
+    if (token.isEmpty) {
+      throw Exception('Token is empty');
+    }
+
+    final response = await http.get(
+      Uri.parse('$baseUrl?page=$page&page_size=$pageSize'),
+      headers: {
+        'accept': 'application/json',
+        'Authorization': 'Bearer $token',
+        'Accept-Language': language,
+      },
     );
 
     if (response.statusCode == 200) {
-      return response.data as List<dynamic>;
+      try {
+        final Map<String, dynamic>? jsonResponse = json.decode(response.body) as Map<String, dynamic>?;
+
+        print('JSON Response: $jsonResponse');
+
+        final apiResponse = ApiResponse<List<News>>.fromJson(
+          jsonResponse ?? {},
+              (data) {
+            if (data is List) {
+              return data.map((item) {
+                if (item is Map<String, dynamic>) {
+                  return News.fromJson(item);
+                }
+                throw Exception('Unexpected item format in data list');
+              }).toList();
+            }
+            throw Exception('Unexpected data format');
+          },
+        );
+
+        print('API Response: $apiResponse');
+        return apiResponse.data ?? [];
+      } catch (e) {
+        print('Error parsing response: $e'); // Log the parsing error
+        throw Exception('Failed to parse response');
+      }
+    } else if (response.statusCode == 401) {
+      throw Exception('Unauthorized request. Please check your token.');
     } else {
-      throw Exception('Failed to load news');
+      throw Exception('Failed to load news. Status code: ${response.statusCode}');
     }
   }
 }

@@ -10,6 +10,7 @@ import '../bloc/signup/signup_event.dart';
 import '../bloc/signup/signup_state.dart';
 import '../login_api.dart';
 import '../main.dart';
+import '../repositories/google_signin/newtry.dart';
 import '../repositories/storage.dart';
 import '../theme/image_resource.dart';
 import '../ui_components/customButton.dart';
@@ -158,7 +159,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 children: [
                                                   const Text(
                                                     '+91',
-                                                    style: TextStyle(fontSize: 15, color: Colors.black),
+                                                    style: TextStyle(fontSize: 18, color: Colors.black),
                                                   ),
                                                   const Icon(Icons.keyboard_arrow_down, size: 20, color: Colors.black),
                                                   const SizedBox(width: 4),
@@ -175,7 +176,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             border: const OutlineInputBorder(
                                               borderRadius: BorderRadius.all(Radius.circular(10)),
                                             ),
-                                            labelText: 'Enter Mobile Number',
+                                            hintText: 'Enter Mobile Number',
+
                                             contentPadding: const EdgeInsets.symmetric(vertical: 15),
                                           ),
                                           onChanged: (String? value) {
@@ -330,11 +332,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             ),
                                           ),
 
-                                          const SizedBox(width: 20),
+                                          const SizedBox(width: 10),
                                           GestureDetector(
                                             onTap: () {
-                                              //Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(),));
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => StoryPage(),));
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPagenew(),));
+                                             // Navigator.push(context, MaterialPageRoute(builder: (context) => StoryPage(),));
                                               //print('Facebook Sign-In button pressed');
                                               print('Story view button pressed');
                                             },

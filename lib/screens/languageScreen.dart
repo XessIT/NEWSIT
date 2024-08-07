@@ -167,7 +167,7 @@ class LanguageButton extends StatelessWidget {
           label,
           style: TextStyle(
             color: isSelected ? Colors.white : Colors.black,
-            fontSize: 10,
+            fontSize: 18,
           ),
         ),
       ),

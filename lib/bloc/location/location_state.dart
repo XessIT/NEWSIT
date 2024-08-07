@@ -7,7 +7,7 @@ class LocationSelectionState extends Equatable {
   final String primaryLocation;
   final String homeTown;
   final String cityOfChoice;
-  final String userName; // Add userName field
+  final String userName;
 
   LocationSelectionState({
     required this.categories,
@@ -15,7 +15,7 @@ class LocationSelectionState extends Equatable {
     required this.primaryLocation,
     required this.homeTown,
     required this.cityOfChoice,
-    required this.userName, // Initialize userName
+    required this.userName,
   });
 
   factory LocationSelectionState.initial() {
@@ -25,7 +25,7 @@ class LocationSelectionState extends Equatable {
       primaryLocation: 'Select',
       homeTown: 'Select',
       cityOfChoice: 'Select',
-      userName: '', // Default userName to an empty string
+      userName: '',
     );
   }
 
@@ -35,7 +35,7 @@ class LocationSelectionState extends Equatable {
     String? primaryLocation,
     String? homeTown,
     String? cityOfChoice,
-    String? userName, // Add userName to copyWith
+    String? userName,
   }) {
     return LocationSelectionState(
       categories: categories ?? this.categories,
@@ -43,7 +43,7 @@ class LocationSelectionState extends Equatable {
       primaryLocation: primaryLocation ?? this.primaryLocation,
       homeTown: homeTown ?? this.homeTown,
       cityOfChoice: cityOfChoice ?? this.cityOfChoice,
-      userName: userName ?? this.userName, // Copy userName
+      userName: userName ?? this.userName,
     );
   }
 

@@ -207,7 +207,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onPressed: () {
                         _showLogoutDialog(context);
                       },
-                      child: Text('Logout', style: TextStyle(color: Colors.red)),
+                      child: Text('Logout', style: TextStyle(color: Colors.red, fontSize: 14,fontWeight: FontWeight.bold)),
                     ),
                   ),
                 ],
@@ -219,7 +219,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void _showLogoutDialog(BuildContext context) {
+  void _showLogoutDialogAW(BuildContext context) {
     AwesomeDialog(
       context: context,
       dialogType: DialogType.warning,
@@ -232,6 +232,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Navigator.of(context).pushReplacementNamed('/');
       },
     )..show();
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black54, // Semi-transparent dark overlay
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Logout'),
+          content: Text('Are you sure you want to logout?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  fontWeight: FontWeight.normal, // Regular font
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () async {
+                await _secureStorageService.clearAllTokens();
+                Navigator.of(context).pushReplacementNamed('/');
+              },
+              child: Text(
+                'Confirm',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold, // Bold font
+                  fontSize: 14,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 

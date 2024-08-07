@@ -12,7 +12,16 @@
           "package_name": "com.newsit.read"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "472052591691-14q1hii4f5fegtl0ub7apo1j9ih3296r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.newsit.read",
+            "certificate_hash": "e245a331094925e0b059658295f2fd1ecd2f968a"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBo_Bf72mBm-2TONbJgcsX5wvC4GufTGWk"

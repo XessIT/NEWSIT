@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:read/screens/welcome.dart';
@@ -42,7 +41,7 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
   void startTimer() {
-    _start = 160;
+    _start = 1800;
     isTimerFinished = false;
     isOtpFieldEnabled = true; // Enable the OTP field when timer starts
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -217,7 +216,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                                     fieldStyle: FieldStyle.box,
                                                     outlineBorderRadius: 10,
                                                     style:
-                                                        TextStyle(fontSize: 17),
+                                                        TextStyle(fontSize: 18),
                                                     onChanged: (pin) {
                                                       _checkOtpComplete(pin);
                                                     },
@@ -243,15 +242,18 @@ class _OTPScreenState extends State<OTPScreen> {
                                                             .read<SignupBloc>()
                                                             .add(SentOTPEvent(
                                                                 widget.mobile));
-                                                        startTimer();
+                                                        //startTimer();
                                                       },
                                                       child:  Text(
                                                           "Resend OTP",style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                                           fontWeight: FontWeight.bold, color: Colors.grey)),
                                                     )
                                                   : Text(
-                                                      'Resend OTP in $_start seconds',style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                                      'Resend OTP',style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                                   fontWeight: FontWeight.bold, color: Colors.grey),),
+                                              // Text(
+                                              //   'Resend OTP in $_start seconds',style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                              //     fontWeight: FontWeight.bold, color: Colors.grey),),
                                             )
                                           ],
                                         ),
