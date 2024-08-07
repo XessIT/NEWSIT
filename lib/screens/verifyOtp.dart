@@ -186,7 +186,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                         ),
                                          Column(
                                           children: [
-                                            Text('OTP has been sent to +${widget.mobile}',style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                            Text('OTP has been sent to +91 ${widget.mobile}',style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                                 fontWeight: FontWeight.bold, color: Colors.grey),)
                                           ],
                                         ),
@@ -276,35 +276,6 @@ class _OTPScreenState extends State<OTPScreen> {
                                               showArrowRight: false, // Change to true to show the right icon
                                             ),
 
-                                            // SizedBox(
-                                            //   height: 50,
-                                            //   width: double.infinity,
-                                            //   child: OutlinedButton(
-                                            //     onPressed: isOtpComplete
-                                            //         ? () {
-                                            //             print(
-                                            //                 "Verifying OTP: $otp");
-                                            //             context
-                                            //                 .read<SignupBloc>()
-                                            //                 .add(VerifyOTPEvent(
-                                            //                     widget.mobile,
-                                            //                     otp));
-                                            //           }
-                                            //         : null,
-                                            //     style: OutlinedButton.styleFrom(
-                                            //       backgroundColor: isOtpComplete
-                                            //           ? ColorResource
-                                            //               .color0000FF
-                                            //           : Colors.grey,
-                                            //     ),
-                                            //     child: const Text(
-                                            //       "Verify OTP",
-                                            //       style: TextStyle(
-                                            //         color: Colors.white,
-                                            //       ),
-                                            //     ),
-                                            //   ),
-                                            // ),
                                           ],
                                         ),
                                       ],

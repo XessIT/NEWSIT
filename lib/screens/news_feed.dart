@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:read/screens/SearchProfile.dart';
 
 class NewsFeed extends StatefulWidget {
   final String imageUrl;
@@ -23,7 +24,7 @@ class _NewsFeedState extends State<NewsFeed> {
       padding: const EdgeInsets.only(left: 12, right: 12 , bottom: 8,top: 8),
       child: Container(
         width: 335,
-        height: 500,
+        //height: 550,
         //padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
         decoration: const BoxDecoration(
           color: Color(0xFFF5F5FC),
@@ -59,10 +60,11 @@ class _NewsFeedState extends State<NewsFeed> {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(0.0),
+          padding: const EdgeInsets.only(bottom: 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Container(
@@ -81,6 +83,15 @@ class _NewsFeedState extends State<NewsFeed> {
                   ),
                 ),
               ),
+              TextButton(
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => SearchProfile()),
+                    );
+                  },
+                  child: Text("Topic", style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontWeight: FontWeight.w500, color: Colors.black),)),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Text(

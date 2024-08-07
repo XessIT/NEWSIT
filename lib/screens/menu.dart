@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:read/screens/profile.dart';
-import 'package:read/screens/search.dart';
+import 'package:read/screens/location.dart';
 
+import 'package:read/screens/profile.dart';
+import 'package:read/screens/savedNews.dart';
+import 'package:read/screens/search.dart';
 import '../bloc/menu/menu_bloc.dart';
 import '../bloc/menu/menu_event.dart';
 import '../bloc/menu/menu_state.dart';
@@ -11,6 +13,7 @@ import '../landing_page/custom_appbar.dart';
 import '../repositories/profileApi.dart';
 import '../repositories/storage.dart';
 import '../theme/image_resource.dart';
+import 'languageScreen.dart';
 
 class MenuPage extends StatelessWidget {
   @override
@@ -39,7 +42,7 @@ class MenuBody extends StatelessWidget {
           onTap: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => ProfilePage()), // Replace HomePage with your home page widget
+              MaterialPageRoute(builder: (context) => ProfilePage()),
             );
           },
           child: BlocBuilder<MenuBloc, MenuState>(
@@ -60,10 +63,10 @@ class MenuBody extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white, // Background color for the list
-            borderRadius: BorderRadius.circular(16), // Rounded corners
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: Colors.grey, // Grey border color
+              color: Colors.grey,
               width: 1.0,
             ),
           ),
@@ -76,8 +79,17 @@ class MenuBody extends StatelessWidget {
                   child: Text("Language Preferences")),
               const SizedBox(height: 5),
               _buildListTile(
-                'English - English',
-                Icons.arrow_forward_ios,
+                title: 'English - English',
+                icon: Icons.arrow_forward_ios,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LanguageDesign(),
+                    ),
+                  );
+                  // Add your onTap action here
+                },
               ),
               const SizedBox(height: 10),
               const Align(
@@ -96,15 +108,45 @@ class MenuBody extends StatelessWidget {
                   child: Text("News Preferences")),
               const SizedBox(height: 5),
               _buildListTile(
-                  'Preferred location and category', Icons.arrow_forward_ios),
+                  title: 'Preferred location and category',
+                  icon: Icons.arrow_forward_ios,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LocationCategorySelection(),
+                      ),
+                    );
+                    // Add your onTap action here
+                  }),
               const SizedBox(height: 10),
-              _buildListTile('Terms & Conditions', Icons.arrow_forward_ios),
+              _buildListTile(
+                  title: 'Terms & Conditions',
+                  icon: Icons.arrow_forward_ios,
+                  onTap: () {
+                    // Add your onTap action here
+                  }),
               const SizedBox(height: 10),
-              _buildListTile('Privacy Policies', Icons.arrow_forward_ios),
+              _buildListTile(
+                  title: 'Privacy Policies',
+                  icon: Icons.arrow_forward_ios,
+                  onTap: () {
+                    // Add your onTap action here
+                  }),
               const SizedBox(height: 10),
-              _buildListTile('Share App', Icons.arrow_forward_ios),
+              _buildListTile(
+                  title: 'Share App',
+                  icon: Icons.arrow_forward_ios,
+                  onTap: () {
+                    // Add your onTap action here
+                  }),
               const SizedBox(height: 10),
-              _buildListTile('About Us', Icons.arrow_forward_ios),
+              _buildListTile(
+                  title: 'About Us',
+                  icon: Icons.arrow_forward_ios,
+                  onTap: () {
+                    // Add your onTap action here
+                  }),
             ],
           ),
         )
@@ -116,18 +158,18 @@ class MenuBody extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.grey[100], // Light grey background
+        color: Colors.grey[100],
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: Colors.grey, // Grey border color
+          color: Colors.grey,
           width: 1.0,
-        ), // Rounded corners
+        ),
       ),
       child: Row(
         children: [
           CircleAvatar(
             radius: 40,
-            backgroundImage: AssetImage(ImageResource.splashlogo), // Add your profile image here
+            backgroundImage: AssetImage(ImageResource.splashlogo),
           ),
           SizedBox(width: 16),
           Column(
@@ -150,7 +192,12 @@ class MenuBody extends StatelessWidget {
     );
   }
 
-  Widget _buildListTile(String title, IconData icon, {String? subtitle}) {
+  Widget _buildListTile({
+    required String title,
+    required IconData icon,
+    String? subtitle,
+    required VoidCallback onTap,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[100],
@@ -161,6 +208,7 @@ class MenuBody extends StatelessWidget {
         title: Text(title),
         subtitle: subtitle != null ? Text(subtitle) : null,
         trailing: Icon(icon),
+        onTap: onTap,
       ),
     );
   }
@@ -204,10 +252,9 @@ class MenuBody extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SearchPage(),
+            builder: (context) => SavedNewsScreen(),
           ),
         );
-        // Add your button action here
       },
       child: Container(
         decoration: BoxDecoration(
