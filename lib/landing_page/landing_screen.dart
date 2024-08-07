@@ -149,25 +149,7 @@ class _AllNewsState extends State<AllNews> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: widget.showAppBar
-          ? AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => MenuPage()),
-            );
-          },
-          icon: Icon(Icons.menu),
-        ),
-        title: Image.asset(
-          'assets/png/newsit2 1.png',
-        ),
-        actions: [CustomAppBar()],
-        elevation: 0,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        centerTitle: true,
-      )
+          ? BarApp()
           : null,
       body: SafeArea(
         child: FutureBuilder<List<News>?>(

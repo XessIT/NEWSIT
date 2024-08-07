@@ -39,19 +39,7 @@ class _ReportNewsScreenState extends State<ReportNewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(onPressed: () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => MenuPage()), // Replace HomePage with your home page widget
-          );
-        }, icon: Icon(Icons.menu),),
-        title:Image.asset(
-          'assets/png/newsit2 1.png',
-          //height: 100,
-        ),
-        actions: [CustomAppBar()],
-      ),
+      appBar: BarApp(),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
