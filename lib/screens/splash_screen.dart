@@ -4,6 +4,7 @@ import 'package:read/landing_page/landing_screen.dart';
 import 'package:read/landing_page/newsApi.dart';
 import 'package:read/screens/signup.dart';
 import '../landing_page/news_bloc.dart';
+import 'package:read/screens/signup.dart';
 import '../repositories/storage.dart';
 
 
