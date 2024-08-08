@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:read/screens/responce_story_dup.dart';
 import 'package:read/screens/storyviewpage.dart';
 import 'package:read/screens/verifyOtp.dart';
 import 'package:read/screens/welcome.dart';
@@ -8,6 +9,8 @@ import 'package:read/screens/welcome.dart';
 import '../bloc/signup/signup_bloc.dart';
 import '../bloc/signup/signup_event.dart';
 import '../bloc/signup/signup_state.dart';
+import '../landing_page/landing_screen.dart';
+import '../landing_page/read_screen.dart';
 import '../login_api.dart';
 import '../main.dart';
 import '../repositories/google_signin/newtry.dart';
@@ -335,8 +338,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           const SizedBox(width: 10),
                                           GestureDetector(
                                             onTap: () {
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPagenew(),));
-                                             // Navigator.push(context, MaterialPageRoute(builder: (context) => StoryPage(),));
+                                             // Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPagenew(),));
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => FeedScreen(),));
+                                           //  Navigator.push(context, MaterialPageRoute(builder: (context) => LandingScreen(),));
                                               //print('Facebook Sign-In button pressed');
                                               print('Story view button pressed');
                                             },

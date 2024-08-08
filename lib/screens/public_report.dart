@@ -161,6 +161,9 @@ class _ReportNewsScreenState extends State<ReportNewsScreen> {
                   newsRejected: _newsRejected,
                   newsPublished: _newsPublished,
                 ),
+                Container(
+                  height: 100,
+                ),
               ],
             ),
           ),
