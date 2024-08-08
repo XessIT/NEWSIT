@@ -4,20 +4,20 @@ import 'package:http/http.dart' as http;
 import 'package:read/repositories/storage.dart';
 import '../model/api_response.dart';
 
-class NewsApiService {
+class SaveApiService {
   final String baseUrl;
   final SecureStorageService secureStorageService;
 
-  NewsApiService({required this.baseUrl, required this.secureStorageService});
+  SaveApiService({required this.baseUrl, required this.secureStorageService});
 
-  Future<ApiResponse<void>> likeNews(String newsId) async {
+  Future<ApiResponse<void>> saveNews(String newsId) async {
     // final String? token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMwMjg0NzAsImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.psbzOR7KitRjkN2eGx4bJ3AqyA8RUnfg_WrJMZ1FVJE";
     String? token = await secureStorageService.readAccessToken();
     if (token == null) {
       throw Exception('Token not found');
     }
 
-    final url = '$baseUrl/core-svc/api/v1/news/$newsId/like';
+    final url = '$baseUrl/core-svc/api/v1/news/$newsId/save';
     final response = await http.put(
       Uri.parse(url),
       headers: {
@@ -38,14 +38,14 @@ class NewsApiService {
     }
   }
 
-  Future<ApiResponse<void>> dislikeNews(String newsId) async {
+  Future<ApiResponse<void>> unsaveNews(String newsId) async {
     // final String? token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMwMjg0NzAsImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.psbzOR7KitRjkN2eGx4bJ3AqyA8RUnfg_WrJMZ1FVJE";
     String? token = await secureStorageService.readAccessToken();
     if (token == null) {
       throw Exception('Token not found');
     }
 
-    final url = '$baseUrl/core-svc/api/v1/news/$newsId/dislike';
+    final url = '$baseUrl/core-svc/api/v1/news/$newsId/unsave';
     final response = await http.put(
       Uri.parse(url),
       headers: {

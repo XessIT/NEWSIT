@@ -1,4 +1,6 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read/landing_page/read_screen.dart';
 import 'package:read/webNews.dart';
@@ -24,67 +26,103 @@ class LandingScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => NavigationBloc(),
       child: Scaffold(
-        body: Stack(
-          children: [
-            BlocBuilder<NavigationBloc, NavigationState>(
-              builder: (context, state) {
-                final pages = [
-                  ReadScreen(),
-                  ReportNewsScreen(),
-                  ContactUsPage(),
-                ];
-                return pages[state.selectedIndex];
-              },
-            ),
-            Positioned(
-              bottom: 20,
-              left: 10,
-              right: 10,
-              child: Container(
-                height: 60,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(30),
-
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 10,
-                    ),
-                  ],
+        body: WillPopScope(
+          onWillPop: () async {
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.warning,
+              title: 'Exit',
+              desc: 'Do you want to Exit?',
+              width: 400,
+              btnOk: ElevatedButton(
+                onPressed: () {
+                  SystemNavigator.pop();
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
                 ),
-                child: BlocBuilder<NavigationBloc, NavigationState>(
-                  builder: (context, state) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        _buildNavItem(
-                          context,
-                          icon: Icons.menu_book_outlined,
-                          label: 'Read',
-                          index: 0,
-                        ),
-                        _buildNavItem(
-                          context,
-                          icon: Icons.collections_bookmark,
-                          label: 'Report',
-                          index: 1,
-                        ),
-                        _buildNavItem(
-                          context,
-                          icon: Icons.area_chart,
-                          label: 'Reach',
-                          index: 2,
-                        ),
-                      ],
-                    );
-                  },
+                child: const Text(
+                  'Yes',
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
-            ),
-          ],
+              btnCancel: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                ),
+                child: const Text(
+                  'No',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ).show();
+            return false;
+          },
+          child: Stack(
+            children: [
+              BlocBuilder<NavigationBloc, NavigationState>(
+                builder: (context, state) {
+                  final pages = [
+                    ReadScreen(),
+                    ReportNewsScreen(),
+                    ContactUsPage(),
+                  ];
+                  return pages[state.selectedIndex];
+                },
+              ),
+              Positioned(
+                bottom: 20,
+                left: 10,
+                right: 10,
+                child: Container(
+                  height: 60,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30),
+          
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 10,
+                      ),
+                    ],
+                  ),
+                  child: BlocBuilder<NavigationBloc, NavigationState>(
+                    builder: (context, state) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _buildNavItem(
+                            context,
+                            icon: Icons.menu_book_outlined,
+                            label: 'Read',
+                            index: 0,
+                          ),
+                          _buildNavItem(
+                            context,
+                            icon: Icons.collections_bookmark,
+                            label: 'Report',
+                            index: 1,
+                          ),
+                          _buildNavItem(
+                            context,
+                            icon: Icons.area_chart,
+                            label: 'Reach',
+                            index: 2,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -183,7 +221,8 @@ class _AllNewsState extends State<AllNews> {
                       profiles: (newsItem.profiles ?? []).isNotEmpty ? (newsItem.profiles ?? []).map((p) => p.name ?? 'No name').join(', ') : 'No profiles',
                       tags: (newsItem.tags ?? []).isNotEmpty ? (newsItem.tags ?? []).join(', ') : 'No tags',
                       topics: (newsItem.topics ?? []).isNotEmpty ? (newsItem.topics ?? []).map((t) => t.name ?? 'No name').join(', ') : 'Topics',
-                      likeCount: newsItem.like_count ?? 1
+                      likeCount: newsItem.like_count ?? 0,
+                      saveCount: newsItem.save_count ?? 0,
                     ),
                   );
                 },
