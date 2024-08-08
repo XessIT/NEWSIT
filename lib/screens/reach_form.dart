@@ -59,19 +59,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(onPressed: () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => MenuPage()), // Replace HomePage with your home page widget
-          );
-        }, icon: Icon(Icons.menu),),
-        title:Image.asset(
-          'assets/png/newsit2 1.png',
-          //height: 100,
-        ),
-        actions: [CustomAppBar()],
-      ),
+      appBar:BarApp(),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
@@ -80,82 +68,6 @@ class _ContactUsPageState extends State<ContactUsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Header
-                /*Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        // Image.asset(
-                        //   'assets/image1.jpeg',
-                        //   height: 50,
-                        // ),
-                        Container(
-                          width: 43, // Adjust the width and height as needed
-                          height: 43,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.grey, width: 1), // Circular border
-                          ),
-                          child: Center(
-                            child: Icon(Icons.ac_unit_sharp), // Icon inside the circle
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          'NEWSIT',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-        
-                    Row(
-                      children: [
-                        Container(
-                          width: 43, // Adjust the width and height as needed
-                          height: 43,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.grey, width: 1), // Circular border
-                          ),
-                          child: Center(
-                            child: Icon(Icons.translate), // Icon inside the circle
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 43, // Adjust the width and height as needed
-                          height: 43,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.grey, width: 1), // Circular border
-                          ),
-                          child: Center(
-                            child: Icon(Icons.notifications_none_rounded), // Icon inside the circle
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 43, // Adjust the width and height as needed
-                          height: 43,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.grey, width: 1), // Circular border
-                          ),
-                          child: Center(
-                            child: Icon(Icons.person_outline_outlined), // Icon inside the circle
-                          ),
-                        ),
-                        // CircleAvatar(
-                        //   backgroundImage: AssetImage('assets/image1.jpeg'),
-                        // ),
-                      ],
-                    ),
-        
-                  ],
-                ),*/
                 SizedBox(height: 16),
                 // Image Carousel
                 SizedBox(

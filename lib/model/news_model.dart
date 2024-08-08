@@ -3,67 +3,29 @@ import 'package:json_annotation/json_annotation.dart';
 part 'news_model.g.dart';
 
 @JsonSerializable()
-class NewsCategoryResponse {
-  final int status;
-  final String message;
-  final List<NewsCategory> data;
-
-  NewsCategoryResponse({required this.status, required this.message, required this.data});
-
-  factory NewsCategoryResponse.fromJson(Map<String, dynamic> json) => _$NewsCategoryResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$NewsCategoryResponseToJson(this);
-}
-
-@JsonSerializable()
-class NewsCategory {
-  final String id;
-  final String name;
-  final String description;
-  final String? images;
-  final List<News> news;
-
-  NewsCategory({required this.id, required this.name, required this.description, this.images, required this.news});
-
-  factory NewsCategory.fromJson(Map<String, dynamic> json) => _$NewsCategoryFromJson(json);
-  Map<String, dynamic> toJson() => _$NewsCategoryToJson(this);
-}
-
-@JsonSerializable()
-class NewsStoryResponse {
-  final int status;
-  final String message;
-  final List<News> data;
-
-  NewsStoryResponse({required this.status, required this.message, required this.data});
-
-  factory NewsStoryResponse.fromJson(Map<String, dynamic> json) => _$NewsStoryResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$NewsStoryResponseToJson(this);
-}
-
-@JsonSerializable()
 class News {
-  final String id;
-  @JsonKey(name: 'web_content')
-  final String webContent;
-  @JsonKey(name: 'news_card_images')
-  final NewsCardImage? newsCardImage;
-  @JsonKey(name: 'is_liked', defaultValue: false)
-  final bool isLiked;
-  @JsonKey(name: 'is_saved', defaultValue: false)
-  final bool isSaved;
-  @JsonKey(name: 'like_count', defaultValue: 0)
-  final int likeCount;
-  @JsonKey(name: 'save_count', defaultValue: 0)
-  final int saveCount;
+  final String? id;
+  final String? web_content;
+  final NewsCardImages? news_card_images;
+  final List<Profile>? profiles;
+  final List<Topic>? topics;
+  final List<String>? tags;
+  final bool? is_liked;
+  final bool? is_saved;
+  final int? like_count;
+  final int? save_count;
 
   News({
-    required this.id,
-    required this.webContent,
-    this.newsCardImage,
-    required this.isLiked,
-    required this.isSaved,
-    required this.likeCount,
-    required this.saveCount,
+    this.id,
+    this.web_content,
+    this.news_card_images,
+    this.profiles,
+    this.topics,
+    this.tags,
+    this.is_liked,
+    this.is_saved,
+    this.like_count,
+    this.save_count,
   });
 
   factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
@@ -71,20 +33,59 @@ class News {
 }
 
 @JsonSerializable()
-class NewsCardImage {
-  @JsonKey(name: 'original_url')
-  final String? originalUrl;
-  @JsonKey(name: 'thumbnail_url')
-  final String? thumbnailUrl;
-  @JsonKey(name: 'low_res_url')
-  final String? lowResUrl;
+class NewsCardImages {
+  final String? original_key;
+  final String? original_url;
+  final String? thumbnail_key;
+  final String? thumbnail_url;
+  final String? low_res_key;
+  final String? low_res_url;
 
-  NewsCardImage({
-    this.originalUrl,
-    this.thumbnailUrl,
-    this.lowResUrl,
+  NewsCardImages({
+    this.original_key,
+    this.original_url,
+    this.thumbnail_key,
+    this.thumbnail_url,
+    this.low_res_key,
+    this.low_res_url,
   });
 
-  factory NewsCardImage.fromJson(Map<String, dynamic> json) => _$NewsCardImageFromJson(json);
-  Map<String, dynamic> toJson() => _$NewsCardImageToJson(this);
+  factory NewsCardImages.fromJson(Map<String, dynamic> json) => _$NewsCardImagesFromJson(json);
+  Map<String, dynamic> toJson() => _$NewsCardImagesToJson(this);
+}
+
+@JsonSerializable()
+class Profile {
+  final String? id;
+  final String? name;
+  final String? description;
+  final String? image;
+
+  Profile({
+    this.id,
+    this.name,
+    this.description,
+    this.image,
+  });
+
+  factory Profile.fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);
+  Map<String, dynamic> toJson() => _$ProfileToJson(this);
+}
+
+@JsonSerializable()
+class Topic {
+  final String? id;
+  final String? name;
+  final String? description;
+  final String? image;
+
+  Topic({
+    this.id,
+    this.name,
+    this.description,
+    this.image,
+  });
+
+  factory Topic.fromJson(Map<String, dynamic> json) => _$TopicFromJson(json);
+  Map<String, dynamic> toJson() => _$TopicToJson(this);
 }

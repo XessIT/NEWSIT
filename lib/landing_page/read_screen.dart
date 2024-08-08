@@ -7,7 +7,7 @@ import '../bloc/read_screen/read_screen_events.dart';
 import '../bloc/read_screen/read_screen_state.dart';
 import '../bloc/story_page/story_page_bloc.dart';
 import '../bloc/story_page/story_page_events.dart';
-import '../model/news_model.dart';
+import '../model/read_story_model.dart';
 import '../screens/storyviewpage.dart';
 
 class ReadScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _ReadScreenState extends State<ReadScreen> {
   @override
   void initState() {
     super.initState();
-    _bloc = ReadScreenBloc()..add(FetchNewsCategories('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMxMTQ0MjcsImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.70gv9Li1ZuvSyROEAucgjSLmCm43KTMt8oMcy3aSpo0'));
+    _bloc = ReadScreenBloc()..add(FetchNewsCategories('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMxMjA1MjksImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.51wimiQ7Xiv6aR2bFRdHn15wraflAQQf-Hm3lu9lZRU'));
   }
 
   @override

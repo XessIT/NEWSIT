@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../model/news_model.dart';
+
+import '../model/read_story_model.dart';
 
 class ApiService {
   static const String baseUrl = 'http://stg-api-alb-1550582675.ap-south-1.elb.amazonaws.com/news-svc/api/v1/news-stories';

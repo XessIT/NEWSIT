@@ -26,7 +26,7 @@ class LandingScreen extends StatelessWidget {
               builder: (context, state) {
                 final pages = [
                   BlocProvider(
-                    create: (context) => ReadScreenBloc()..add(FetchNewsCategories('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMxMTQ0MjcsImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.70gv9Li1ZuvSyROEAucgjSLmCm43KTMt8oMcy3aSpo0')),
+                    create: (context) => ReadScreenBloc()..add(FetchNewsCategories('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMxMjA1MjksImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.51wimiQ7Xiv6aR2bFRdHn15wraflAQQf-Hm3lu9lZRU')),
                     child: ReadScreen(),
                   ),
                   ReportNewsScreen(),

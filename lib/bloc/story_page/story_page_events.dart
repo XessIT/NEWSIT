@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import '../../model/news_model.dart';
+import '../../model/read_story_model.dart';
+
 
 abstract class StoryPageEvent extends Equatable {
   @override

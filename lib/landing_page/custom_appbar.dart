@@ -2,7 +2,6 @@ import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
 import '../screens/notification.dart';
 
-import '../screens/responce_story_dup.dart';
 import '../screens/search.dart';
 import 'landing_screen.dart';
 
@@ -172,7 +171,7 @@ class BarApp extends StatelessWidget implements PreferredSizeWidget {
         child: IconButton(
           icon: Icon(Icons.menu,size: 30,),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => FeedScreen(),));
+           // Navigator.push(context, MaterialPageRoute(builder: (context) => FeedScreen(),));
             // Handle menu button press
           },
 

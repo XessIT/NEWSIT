@@ -1,15 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:read/landing_page/landing_screen.dart';
+import 'package:read/landing_page/newsApi.dart';
 import 'package:read/screens/signup.dart';
 import '../landing_page/news_bloc.dart';
+import 'package:read/screens/signup.dart';
 import '../repositories/storage.dart';
-import 'languageScreen.dart';
-import 'location.dart';
-import '../webNews.dart';
-
-
-
 
 
 class SplashScreen extends StatefulWidget {
@@ -45,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => LanguageDesign(),
+          builder: (context) => SignUpScreen(),
          // builder: (context) => WebNews(),
 
         ),

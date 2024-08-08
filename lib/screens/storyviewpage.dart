@@ -5,7 +5,7 @@ import 'package:story_view/story_view.dart';
 import '../bloc/story_page/story_page_bloc.dart';
 import '../bloc/story_page/story_page_events.dart';
 import '../bloc/story_page/story_page_state.dart';
-import '../model/news_model.dart';
+import '../model/read_story_model.dart';
 import '../ui_components/customButton.dart';
 
 class StoryPage extends StatelessWidget {
