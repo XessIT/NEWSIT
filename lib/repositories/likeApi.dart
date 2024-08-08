@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import 'package:read/repositories/storage.dart';
 import '../model/api_response.dart';
 
 class NewsApiService {
   final String baseUrl;
-  final FlutterSecureStorage storage;
+  final SecureStorageService secureStorageService;
 
-  NewsApiService({required this.baseUrl, required this.storage});
+  NewsApiService(this.secureStorageService, {required this.baseUrl});
 
   Future<ApiResponse<void>> likeNews(String newsId) async {
     final String? token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMwMDg0NDksImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.AvYBpxgbvHTzi9ubqtbsOgNk8CrCNlrW0mtAyZkYLTk";

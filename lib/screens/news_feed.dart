@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:read/repositories/storage.dart';
 import '../bloc/newCard/newsCard_bloc.dart';
 import '../bloc/newCard/newsCard_event.dart';
 import '../bloc/newCard/newsCard_state.dart';
@@ -36,10 +36,10 @@ class _NewsFeedState extends State<NewsFeed> {
 
   @override
   Widget build(BuildContext context) {
-    final storage = FlutterSecureStorage();
+
     final newsApiService = NewsApiService(
       baseUrl: 'http://stg-api-alb-1550582675.ap-south-1.elb.amazonaws.com',
-      storage: storage,
+      SecureStorageService()
     );
 
     return BlocProvider(
