@@ -1,16 +1,18 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:read/repositories/storage.dart';
 import '../model/api_response.dart';
 
 class NewsApiService {
   final String baseUrl;
-  final FlutterSecureStorage storage;
+  final SecureStorageService secureStorageService;
 
-  NewsApiService({required this.baseUrl, required this.storage});
+  NewsApiService({required this.baseUrl, required this.secureStorageService});
 
   Future<ApiResponse<void>> likeNews(String newsId) async {
-    final String? token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMwMDg0NDksImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.AvYBpxgbvHTzi9ubqtbsOgNk8CrCNlrW0mtAyZkYLTk";
+    // final String? token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMwMjg0NzAsImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.psbzOR7KitRjkN2eGx4bJ3AqyA8RUnfg_WrJMZ1FVJE";
+    String? token = await secureStorageService.readAccessToken();
     if (token == null) {
       throw Exception('Token not found');
     }
@@ -37,7 +39,8 @@ class NewsApiService {
   }
 
   Future<ApiResponse<void>> dislikeNews(String newsId) async {
-    final String? token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMwMDg0NDksImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.AvYBpxgbvHTzi9ubqtbsOgNk8CrCNlrW0mtAyZkYLTk";
+    // final String? token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMwMjg0NzAsImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.psbzOR7KitRjkN2eGx4bJ3AqyA8RUnfg_WrJMZ1FVJE";
+    String? token = await secureStorageService.readAccessToken();
     if (token == null) {
       throw Exception('Token not found');
     }

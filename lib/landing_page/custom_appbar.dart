@@ -1,82 +1,117 @@
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/material.dart';
+import '../screens/menu.dart';
 import '../screens/notification.dart';
 
 import '../screens/search.dart';
 import 'landing_screen.dart';
 
-class CustomAppBar extends StatefulWidget {
-  const CustomAppBar({super.key});
-
+class BarApp extends StatelessWidget implements PreferredSizeWidget {
   @override
-  State<CustomAppBar> createState() => _CustomAppBarState();
-}
+  final Size preferredSize;
 
-class _CustomAppBarState extends State<CustomAppBar> {
-  bool _isPositiveMode = false;
+  BarApp({Key? key})
+      : preferredSize = const Size.fromHeight(kToolbarHeight),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Switch(
-              value: _isPositiveMode,
-              onChanged: (value) {
-                setState(() {
-                  _isPositiveMode = value;
-                });
-              },
-              activeColor: Colors.green,
-            ),
-            Text(
-              _isPositiveMode ? 'Positive Mode' : 'Positive Mode is off',
-              style: TextStyle(color: Colors.black, fontSize: 5),
-            ),
-          ],
-        ),
-        SizedBox(width: 10),
-        CircleIconButton(
-          icon: Icons.search,
+    return AppBar(
+      leading: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: IconButton(
+          icon: Icon(Icons.menu,size: 30,),
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => SearchPage()),
+              MaterialPageRoute(builder: (context) => MenuPage()),
             );
           },
+
         ),
-        SizedBox(width: 10),
-        Stack(
-          children: [
-            CircleIconButton(
-              icon: Icons.notifications,
-              onPressed: () {
+      ),
+      title: Image.asset(
+        'assets/png/newsit2 1.png',
+        height: kToolbarHeight - 8, // Adjust the height as necessary
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0), // Adjust the padding as necessary
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Switch(
+                value: true, // Set the initial value as necessary
+                onChanged: (bool newValue) {
+                  // Handle switch change
+                },
+                activeColor: Colors.green,
+              ),
+              SizedBox(width: 10), // Space between switch and icons
+              _buildCircleIconButton(Icons.search, () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchPage()),
+                );
+                // Handle search button press
+              }),
+              SizedBox(width: 10), // Space between icons
+              _buildCircleIconButton(Icons.notifications, () {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => NotificationsScreen()),
                 );
-              },
-            ),
-            Positioned(
-              right: 0,
-              child: Container(
-                padding: EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
+                // Handle notifications button press
+              }, hasNotification: true),
+              SizedBox(width: 10), // Space to the end of the app bar
+            ],
+          ),
+        ),
+      ],
+      backgroundColor: Colors.white,
+      elevation: 0,
+      iconTheme: IconThemeData(color: Colors.black),
+    );
+  }
+
+  Widget _buildCircleIconButton(IconData icon, VoidCallback onPressed, {bool hasNotification = false}) {
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.grey.shade200, // Adjust background color if necessary
+          ),
+          child: IconButton(
+            icon: Icon(icon),
+            onPressed: onPressed,
+            color: Colors.black, // Adjust icon color if necessary
+          ),
+        ),
+        if (hasNotification)
+          Positioned(
+            right: 8,
+            top: 8,
+            child: Container(
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              constraints: BoxConstraints(
+                minWidth: 12,
+                minHeight: 12,
+              ),
+              child: Text(
+                '',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 8,
                 ),
-                constraints: BoxConstraints(
-                  minWidth: 12,
-                  minHeight: 12,
-                ),
+                textAlign: TextAlign.center,
               ),
             ),
-          ],
-        ),
-        SizedBox(width: 5),
+          ),
       ],
     );
   }

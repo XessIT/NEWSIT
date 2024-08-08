@@ -12,9 +12,10 @@ class NewsService {
 
   Future<List<News>> fetchNews(int page, int pageSize, String language) async {
     // You should replace the hardcoded token with a dynamic one if needed
-    final token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMwMDg0NDksImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.AvYBpxgbvHTzi9ubqtbsOgNk8CrCNlrW0mtAyZkYLTk";
-
-    if (token.isEmpty) {
+    // final token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMwMjg0NzAsImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.psbzOR7KitRjkN2eGx4bJ3AqyA8RUnfg_WrJMZ1FVJE";
+    String? token = await secureStorageService.readAccessToken();
+    print('News Api Access Token: $token');
+    if (token!.isEmpty) {
       throw Exception('Token is empty');
     }
 
