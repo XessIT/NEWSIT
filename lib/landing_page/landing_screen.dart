@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read/landing_page/read_screen.dart';
 import 'package:read/webNews.dart';
-import '../bloc/newsFeed/newsFeed_bloc.dart';
-import '../bloc/newsFeed/newsFeed_event.dart';
-import '../bloc/newsFeed/newsFeed_state.dart';
+
+import '../bloc/read_screen/read_screen_bloc.dart';
+import '../bloc/read_screen/read_screen_events.dart';
 import '../model/news_model.dart';
 import '../repositories/storage.dart';
 import '../screens/menu.dart';
@@ -18,7 +18,6 @@ import 'custom_appbar.dart';
 import 'navigation_bloc.dart';
 import 'newsApi.dart';
 import 'news_bloc.dart';
-
 
 class LandingScreen extends StatelessWidget {
   @override
@@ -160,6 +159,7 @@ class LandingScreen extends StatelessWidget {
 
 
 
+
 class AllNews extends StatefulWidget {
   final bool showAppBar;
 
@@ -234,5 +234,4 @@ class _AllNewsState extends State<AllNews> {
     );
   }
 }
-
 

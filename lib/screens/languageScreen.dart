@@ -152,7 +152,7 @@ class LanguageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 100,
-      height: 45,
+      height: 60,
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
@@ -163,11 +163,14 @@ class LanguageButton extends StatelessWidget {
             ),
           ),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-            fontSize: 18,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: isSelected ? Colors.white : Colors.black,
+              fontSize: 16,
+            ),
           ),
         ),
       ),

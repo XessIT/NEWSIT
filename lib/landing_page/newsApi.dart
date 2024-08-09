@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:read/model/api_response.dart';
-import 'package:read/model/news_model.dart';
+import '../model/news_model.dart';
 import '../repositories/storage.dart';
 
 class NewsService {

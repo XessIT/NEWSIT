@@ -51,7 +51,7 @@ class _ReportNewsScreenState extends State<ReportNewsScreen> {
               children: [
                 Text(
                   "Report News",
-                  style: Theme.of(context).textTheme.displayMedium,
+                 // style: Theme.of(context).textTheme.displayMedium,
                 ),
                 SizedBox(
                   height: 10,
