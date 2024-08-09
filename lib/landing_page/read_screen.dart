@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read/landing_page/custom_appbar.dart';
+import 'package:read/repositories/storage.dart';
 
 import '../bloc/read_screen/read_screen_bloc.dart';
 import '../bloc/read_screen/read_screen_events.dart';
@@ -17,11 +18,25 @@ class ReadScreen extends StatefulWidget {
 
 class _ReadScreenState extends State<ReadScreen> {
   late ReadScreenBloc _bloc;
+  String? token;
 
   @override
   void initState() {
     super.initState();
-    _bloc = ReadScreenBloc()..add(FetchNewsCategories('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjMxMjA1MjksImlkIjoiNjY2ZDM0MTkyZmNhZDMyM2ZmYzM1MDhhIiwidXNlcl9yb2xlIjoiYWRtaW4ifQ.51wimiQ7Xiv6aR2bFRdHn15wraflAQQf-Hm3lu9lZRU'));
+
+    // Initialize the bloc (no need to add an event yet)
+    _bloc = ReadScreenBloc();
+
+    // Fetch the token and add the event asynchronously
+    _initializeBloc();
+  }
+
+  Future<void> _initializeBloc() async {
+    token = await SecureStorageService().readAccessToken();
+    print("read token : $token");
+
+    // Now that the token is available, add the FetchNewsCategories event
+    _bloc.add(FetchNewsCategories('$token'));
   }
 
   @override
@@ -97,3 +112,5 @@ class _ReadScreenState extends State<ReadScreen> {
     );
   }
 }
+
+
