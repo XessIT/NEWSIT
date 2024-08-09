@@ -50,7 +50,7 @@ class _NewsFeedState extends State<NewsFeed> {
     );
 
     return BlocProvider(
-      create: (context) => NewsFeedBloc(newsApiService, saveApiService),
+      create: (context) => NewsCardBloc(newsApiService, saveApiService),
       child: Padding(
         padding: const EdgeInsets.only(left: 12, right: 12, bottom: 8, top: 8),
         child: Container(
@@ -174,7 +174,7 @@ class _NewsFeedState extends State<NewsFeed> {
                     children: [
                       Row(
                         children: [
-                          BlocConsumer<NewsFeedBloc, NewsFeedState>(
+                          BlocConsumer<NewsCardBloc, NewsCardState>(
                             listener: (context, state) {
                               if (state is NewsFeedLiked) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -208,9 +208,9 @@ class _NewsFeedState extends State<NewsFeed> {
                                     ),
                                     onPressed: () {
                                       if (isLiked) {
-                                        context.read<NewsFeedBloc>().add(DislikeNewsEvent(widget.newsId));
+                                        context.read<NewsCardBloc>().add(DislikeNewsEvent(widget.newsId));
                                       } else {
-                                        context.read<NewsFeedBloc>().add(LikeNewsEvent(widget.newsId));
+                                        context.read<NewsCardBloc>().add(LikeNewsEvent(widget.newsId));
                                       }
                                       setState(() {
                                         isLiked = !isLiked;
@@ -233,9 +233,9 @@ class _NewsFeedState extends State<NewsFeed> {
                                     ),
                                     onPressed: () {
                                       if (isSaved) {
-                                        context.read<NewsFeedBloc>().add(UnsaveNewsEvent(widget.newsId));
+                                        context.read<NewsCardBloc>().add(UnsaveNewsEvent(widget.newsId));
                                       } else {
-                                        context.read<NewsFeedBloc>().add(SaveNewsEvent(widget.newsId));
+                                        context.read<NewsCardBloc>().add(SaveNewsEvent(widget.newsId));
                                       }
                                       setState(() {
                                         isSaved = !isSaved;

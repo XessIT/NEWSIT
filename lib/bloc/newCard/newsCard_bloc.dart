@@ -6,18 +6,18 @@ import 'newsCard_event.dart';
 import 'newsCard_state.dart';
 
 
-class NewsFeedBloc extends Bloc<NewsFeedEvent, NewsFeedState> {
+class NewsCardBloc extends Bloc<NewsCardEvent, NewsCardState> {
   final NewsApiService newsApiService;
   final SaveApiService saveApiService;
 
-  NewsFeedBloc(this.newsApiService, this.saveApiService) : super(NewsFeedInitial()) {
+  NewsCardBloc(this.newsApiService, this.saveApiService) : super(NewsFeedInitial()) {
     on<LikeNewsEvent>(_onLikeNews);
     on<DislikeNewsEvent>(_onDislikeNews);
     on<SaveNewsEvent>(_onSaveNews);
     on<UnsaveNewsEvent>(_onUnsaveNews);
   }
 
-  Future<void> _onLikeNews(LikeNewsEvent event, Emitter<NewsFeedState> emit) async {
+  Future<void> _onLikeNews(LikeNewsEvent event, Emitter<NewsCardState> emit) async {
     emit(NewsFeedLoading());
     try {
       final response = await newsApiService.likeNews(event.newsId);
@@ -31,7 +31,7 @@ class NewsFeedBloc extends Bloc<NewsFeedEvent, NewsFeedState> {
     }
   }
 
-  Future<void> _onDislikeNews(DislikeNewsEvent event, Emitter<NewsFeedState> emit) async {
+  Future<void> _onDislikeNews(DislikeNewsEvent event, Emitter<NewsCardState> emit) async {
     emit(NewsFeedLoading());
     try {
       final response = await newsApiService.dislikeNews(event.newsId);
@@ -45,7 +45,7 @@ class NewsFeedBloc extends Bloc<NewsFeedEvent, NewsFeedState> {
     }
   }
 
-  Future<void> _onSaveNews(SaveNewsEvent event, Emitter<NewsFeedState> emit) async {
+  Future<void> _onSaveNews(SaveNewsEvent event, Emitter<NewsCardState> emit) async {
     emit(NewsFeedLoading());
     try {
       final response = await saveApiService.saveNews(event.newsId);
@@ -59,7 +59,7 @@ class NewsFeedBloc extends Bloc<NewsFeedEvent, NewsFeedState> {
     }
   }
 
-  Future<void> _onUnsaveNews(UnsaveNewsEvent event, Emitter<NewsFeedState> emit) async {
+  Future<void> _onUnsaveNews(UnsaveNewsEvent event, Emitter<NewsCardState> emit) async {
     emit(NewsFeedLoading());
     try {
       final response = await saveApiService.unsaveNews(event.newsId);

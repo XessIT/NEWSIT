@@ -1,27 +1,27 @@
 import 'package:equatable/equatable.dart';
 
-abstract class NewsFeedState extends Equatable {
-  const NewsFeedState();
+abstract class NewsCardState extends Equatable {
+  const NewsCardState();
 
   @override
   List<Object> get props => [];
 }
 
-class NewsFeedInitial extends NewsFeedState {}
+class NewsFeedInitial extends NewsCardState {}
 
-class NewsFeedLoading extends NewsFeedState {}
+class NewsFeedLoading extends NewsCardState {}
 
-class NewsFeedLiked extends NewsFeedState {}
+class NewsFeedLiked extends NewsCardState {}
 
-class NewsFeedDisliked extends NewsFeedState {}
+class NewsFeedDisliked extends NewsCardState {}
 
-class NewsFeedSaved extends NewsFeedState {}
+class NewsFeedSaved extends NewsCardState {}
 
-class NewsFeedUnsaved extends NewsFeedState {}
+class NewsFeedUnsaved extends NewsCardState {}
 
 
 
-class NewsFeedError extends NewsFeedState {
+class NewsFeedError extends NewsCardState {
   final String message;
 
   const NewsFeedError(this.message);

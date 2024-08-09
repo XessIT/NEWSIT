@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-abstract class NewsFeedEvent extends Equatable {
-  const NewsFeedEvent();
+abstract class NewsCardEvent extends Equatable {
+  const NewsCardEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class LikeNewsEvent extends NewsFeedEvent {
+class LikeNewsEvent extends NewsCardEvent {
   final String newsId;
 
   const LikeNewsEvent(this.newsId);
@@ -16,7 +16,7 @@ class LikeNewsEvent extends NewsFeedEvent {
   List<Object> get props => [newsId];
 }
 
-class DislikeNewsEvent extends NewsFeedEvent {
+class DislikeNewsEvent extends NewsCardEvent {
   final String newsId;
 
   const DislikeNewsEvent(this.newsId);
@@ -25,7 +25,7 @@ class DislikeNewsEvent extends NewsFeedEvent {
   List<Object> get props => [newsId];
 }
 
-class SaveNewsEvent extends NewsFeedEvent {
+class SaveNewsEvent extends NewsCardEvent {
   final String newsId;
 
   const SaveNewsEvent(this.newsId);
@@ -34,7 +34,7 @@ class SaveNewsEvent extends NewsFeedEvent {
   List<Object> get props => [newsId];
 }
 
-class UnsaveNewsEvent extends NewsFeedEvent {
+class UnsaveNewsEvent extends NewsCardEvent {
   final String newsId;
 
   const UnsaveNewsEvent(this.newsId);
