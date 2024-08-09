@@ -24,3 +24,22 @@ class DislikeNewsEvent extends NewsFeedEvent {
   @override
   List<Object> get props => [newsId];
 }
+
+class SaveNewsEvent extends NewsFeedEvent {
+  final String newsId;
+
+  const SaveNewsEvent(this.newsId);
+
+  @override
+  List<Object> get props => [newsId];
+}
+
+class UnsaveNewsEvent extends NewsFeedEvent {
+  final String newsId;
+
+  const UnsaveNewsEvent(this.newsId);
+
+  @override
+  List<Object> get props => [newsId];
+}
+

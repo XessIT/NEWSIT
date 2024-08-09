@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../landing_page/custom_appbar.dart';
+
 class SearchProfile extends StatefulWidget {
   const SearchProfile({super.key});
 
@@ -19,15 +21,7 @@ class _SearchProfileState extends State<SearchProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Search"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // Handle back button press
-          },
-        ),
-      ),
+      appBar: LeadingApp(title: "Search"),
       body: SingleChildScrollView(
         child: Column(
           children: [

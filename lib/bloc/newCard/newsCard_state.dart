@@ -15,6 +15,12 @@ class NewsFeedLiked extends NewsFeedState {}
 
 class NewsFeedDisliked extends NewsFeedState {}
 
+class NewsFeedSaved extends NewsFeedState {}
+
+class NewsFeedUnsaved extends NewsFeedState {}
+
+
+
 class NewsFeedError extends NewsFeedState {
   final String message;
 

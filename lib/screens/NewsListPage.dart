@@ -28,7 +28,7 @@ class NewsListPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Container(
-          height: 400,
+          //height: 400,
           padding: EdgeInsets.all(16.0),
           child: ListView.builder(
             itemCount: newsList.length,
