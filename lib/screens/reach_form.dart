@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../landing_page/custom_appbar.dart';
+import '../repositories/reachApi.dart';
+import '../repositories/storage.dart';
 import 'menu.dart';
 
 
@@ -52,10 +55,42 @@ class _ContactUsPageState extends State<ContactUsPage> {
     });
   }
 
-  TextEditingController  companyName = TextEditingController();
   bool get _isButtonEnabled {
-    return companyName.text.isNotEmpty ;
+    return companyNameController.text.isNotEmpty ;
   }
+  final ReachApiService _reachApiService = ReachApiService(Dio(), SecureStorageService());
+  TextEditingController companyNameController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController commentController = TextEditingController();
+  Future<void> _handleSubmit() async {
+    try {
+      final response = await _reachApiService.submitReach(
+        company_name: companyNameController.text,
+        phone_number: phoneNumberController.text,
+        email: emailController.text,
+        comment: commentController.text,
+      );
+
+      if (response.statusCode == 200) {
+        // Handle successful submission
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Submission successful!')),
+        );
+      } else {
+        // Handle failure
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to submit data!')),
+        );
+      }
+    } catch (e) {
+      // Handle error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,7 +156,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                       SizedBox(height: 5),
                       Text("Company Name", style: TextStyle(fontSize: 15)),
                       TextField(
-                        controller: companyName,
+                        controller: companyNameController,
                         decoration: InputDecoration(
                           hintText: 'Company Name',
                           border: OutlineInputBorder(
@@ -132,6 +167,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                       SizedBox(height: 5),
                       Text("Phone Number", style: TextStyle(fontSize: 15)),
                       TextField(
+                        controller: phoneNumberController,
                         decoration: InputDecoration(
                           hintText: 'Phone Number',
                           border: OutlineInputBorder(
@@ -142,6 +178,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                       SizedBox(height: 5),
                       Text("Email ID", style: TextStyle(fontSize: 15)),
                       TextField(
+                        controller: emailController,
                         decoration: InputDecoration(
                           hintText: 'Email ID',
                           border: OutlineInputBorder(
@@ -152,6 +189,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                       SizedBox(height: 5),
                       Text("Comment", style: TextStyle(fontSize: 15)),
                       TextField(
+                        controller: commentController,
                         decoration: InputDecoration(
                           hintText: 'Comment',
                           border: OutlineInputBorder(
@@ -181,6 +219,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                             child: ElevatedButton(
                               onPressed: _isButtonEnabled
                                   ? () {
+                                _handleSubmit();
                                 // Handle submit button press
                               }
                                   : null,
@@ -191,7 +230,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                               ),
-                              child: Text(
+                              child: const Text(
                                 'Submit',
                                 style: TextStyle(
                                   color: Colors.white,
@@ -204,7 +243,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 100),
+                      const SizedBox(height: 100),
                       // Add some padding at the bottom
                     ],
                   ),

@@ -1,12 +1,19 @@
-const baseUrl = 'http://stg-api-alb-1550582675.ap-south-1.elb.amazonaws.com/core-svc/api';
+const CorebaseUrl = 'http://stg-api-alb-1550582675.ap-south-1.elb.amazonaws.com/core-svc/api';
+const NewsbaseUrl = 'http://stg-api-alb-1550582675.ap-south-1.elb.amazonaws.com/news-svc/api';
 const version = 'v1';
-const apiUrl = '$baseUrl/$version';
+const CoreapiUrl = '$CorebaseUrl/$version';
+const NewsapiUrl = '$NewsbaseUrl/$version';
 
-const otpUrl = '$apiUrl/users/signup-mobile';
-const googleUrl = '$apiUrl/users/social-login';
-const verifyotpUrl = '$apiUrl/users/verify-mobile';
-const cityGet = '$apiUrl/cities';
-const WelcomeUrl = '$apiUrl/users/profile';
-const locationUrl = '$apiUrl/users/profile/preferences';
-const categoryUrl = '$apiUrl/categories/search';
-const getNewsUrl = 'http://stg-api-alb-1550582675.ap-south-1.elb.amazonaws.com/news-svc/api/v1/newsfeed';
+// Core Api
+const otpUrl = '$CoreapiUrl/users/signup-mobile';
+const googleUrl = '$CoreapiUrl/users/social-login';
+const verifyotpUrl = '$CoreapiUrl/users/verify-mobile';
+const cityGet = '$CoreapiUrl/cities';
+const WelcomeUrl = '$CoreapiUrl/users/profile';
+const locationUrl = '$CoreapiUrl/users/profile/preferences';
+const categoryUrl = '$CoreapiUrl/categories/search';
+const reachUrl = '$CoreapiUrl/reaches';
+
+
+// News Api
+const getNewsUrl = '$NewsapiUrl/newsfeed';
